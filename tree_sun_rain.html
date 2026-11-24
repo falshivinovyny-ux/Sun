@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Лето</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; }
+  body {
+    background: linear-gradient(#68bff4, #ceecfc);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+  #gloom { fill: #4a5a6a; opacity: 0; transition: opacity 2s; }
+  body.rainy #gloom { opacity: .3; }
+
+  /* солнце */
+  #rays { transform-origin: 0 0; }
+  body.spin #rays { animation: spin 6s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* облако */
+  #cloud-move {
+    transform: translateX(-8px);
+    opacity: 0;
+    transition: transform 2.5s ease-out, opacity .8s;
+  }
+  body.cloud #cloud-move { transform: translateX(0); opacity: 1; }
+
+  /* дождь */
+  #rain { opacity: 0; transition: opacity .6s; }
+  body.rainy #rain { opacity: 1; }
+  .drop {
+    stroke: #3f9bea; stroke-width: .05; stroke-linecap: round;
+    animation: fall 1s linear infinite;
+    animation-play-state: paused;
+  }
+  body.rainy .drop { animation-play-state: running; }
+  @keyframes fall {
+    0%   { transform: translateY(0); opacity: 0; }
+    12%  { opacity: 1; }
+    85%  { opacity: 1; }
+    100% { transform: translateY(4.1px); opacity: 0; }
+  }
+
+  /* крона чуть качается */
+  #crown { transform-origin: 4.5px 3.6px; animation: sway 6s ease-in-out infinite; }
+  @keyframes sway { 50% { transform: rotate(.8deg); } }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 13.333 7.5" preserveAspectRatio="xMidYMid meet">
+  <rect id="gloom" x="-30" y="-30" width="80" height="70"/>
+
+  <!-- земля -->
+  <rect x="-30" y="6.2" width="80" height="30" fill="#58a83a"/>
+  <ellipse cx="3.75" cy="6.35" rx="5.25" ry="0.65" fill="#6cbb48"/>
+  <ellipse cx="11" cy="6.5" rx="4" ry="0.55" fill="#63b341"/>
+
+  <!-- ствол -->
+  <path d="M4.32 3.6 L4.78 3.6 Q4.7 4.3 4.72 4.9 Q4.8 5.8 5.1 6.4 L4.0 6.4 Q4.3 5.8 4.36 4.9 Q4.38 4.3 4.32 3.6 Z"
+        fill="#7a4a24" stroke="#5e3718" stroke-width=".03" stroke-linejoin="round"/>
+
+  <!-- крона -->
+  <g id="crown">
+    <ellipse cx="4.0" cy="3.45" rx="1.1" ry=".9" fill="#2e8b3a" transform="rotate(-15 4 3.45)"/>
+    <ellipse cx="5.6" cy="3.35" rx="1.2" ry="1" fill="#2f8f3a" transform="rotate(10 5.6 3.35)"/>
+    <ellipse cx="6.7" cy="3.6" rx="1" ry=".85" fill="#2e8b3a" transform="rotate(-6 6.7 3.6)"/>
+    <ellipse cx="4.3" cy="2.55" rx="1" ry=".85" fill="#3a9c45" transform="rotate(12 4.3 2.55)"/>
+    <ellipse cx="5.8" cy="2.45" rx="1" ry=".9" fill="#37984a" transform="rotate(-9 5.8 2.45)"/>
+    <ellipse cx="4.8" cy="3.95" rx="1.1" ry=".75" fill="#347f36" transform="rotate(5 4.8 3.95)"/>
+    <ellipse cx="6.1" cy="3.9" rx="1" ry=".75" fill="#3a9c45" transform="rotate(-12 6.1 3.9)"/>
+    <ellipse cx="4.7" cy="2.75" rx=".7" ry=".55" fill="#48ad52" transform="rotate(8 4.7 2.75)"/>
+    <ellipse cx="5.85" cy="2.55" rx=".55" ry=".45" fill="#4db357"/>
+    <g fill="#d93a2b">
+      <circle cx="3.7" cy="3.0" r=".1"/><circle cx="5.5" cy="3.4" r=".1"/>
+      <circle cx="4.6" cy="3.65" r=".1"/><circle cx="6.1" cy="2.8" r=".1"/>
+      <circle cx="3.3" cy="3.4" r=".1"/>
+    </g>
+  </g>
+
+  <!-- трава -->
+  <g fill="#3f8f2a">
+    <path d="M1.2 6.55 l.07-.3 l.07.3z"/><path d="M2.4 6.75 l.07-.3 l.07.3z"/>
+    <path d="M3.2 6.45 l.07-.3 l.07.3z"/><path d="M5.6 6.7 l.07-.3 l.07.3z"/>
+    <path d="M6.9 6.5 l.07-.3 l.07.3z"/><path d="M8.3 6.8 l.07-.3 l.07.3z"/>
+    <path d="M9.6 6.55 l.07-.3 l.07.3z"/><path d="M11.5 6.85 l.07-.3 l.07.3z"/>
+    <path d="M12.4 6.6 l.07-.3 l.07.3z"/>
+  </g>
+  <g fill="#4da535">
+    <path d="M1.32 6.55 l.07-.26 l.07.26z"/><path d="M2.52 6.75 l.07-.26 l.07.26z"/>
+    <path d="M5.72 6.7 l.07-.26 l.07.26z"/><path d="M8.42 6.8 l.07-.26 l.07.26z"/>
+    <path d="M11.62 6.85 l.07-.26 l.07.26z"/>
+  </g>
+  <!-- цветы -->
+  <g stroke="#3f8f2a" stroke-width=".02">
+    <line x1="1.87" y1="6.73" x2="1.87" y2="7.08"/><line x1="7.77" y1="6.83" x2="7.77" y2="7.18"/>
+    <line x1="10.47" y1="6.78" x2="10.47" y2="7.13"/><line x1="6.47" y1="6.93" x2="6.47" y2="7.28"/>
+  </g>
+  <circle cx="1.87" cy="6.67" r=".08" fill="#f2d43b"/>
+  <circle cx="7.77" cy="6.77" r=".08" fill="#fff"/>
+  <circle cx="10.47" cy="6.72" r=".08" fill="#f28cb8"/>
+  <circle cx="6.47" cy="6.87" r=".08" fill="#f2d43b"/>
+
+  <!-- солнце -->
+  <g transform="translate(11.3,1.6)">
+    <g id="rays" fill="#ffc800" stroke="#f5a800" stroke-width=".025" stroke-linejoin="round">
+      <path d="M-.15 -.82 L0 -1.5 L.15 -.82z"/>
+      <path d="M-.15 -.82 L0 -1.25 L.15 -.82z" transform="rotate(30)"/>
+      <path d="M-.15 -.82 L0 -1.5 L.15 -.82z" transform="rotate(60)"/>
+      <path d="M-.15 -.82 L0 -1.25 L.15 -.82z" transform="rotate(90)"/>
+      <path d="M-.15 -.82 L0 -1.5 L.15 -.82z" transform="rotate(120)"/>
+      <path d="M-.15 -.82 L0 -1.25 L.15 -.82z" transform="rotate(150)"/>
+      <path d="M-.15 -.82 L0 -1.5 L.15 -.82z" transform="rotate(180)"/>
+      <path d="M-.15 -.82 L0 -1.25 L.15 -.82z" transform="rotate(210)"/>
+      <path d="M-.15 -.82 L0 -1.5 L.15 -.82z" transform="rotate(240)"/>
+      <path d="M-.15 -.82 L0 -1.25 L.15 -.82z" transform="rotate(270)"/>
+      <path d="M-.15 -.82 L0 -1.5 L.15 -.82z" transform="rotate(300)"/>
+      <path d="M-.15 -.82 L0 -1.25 L.15 -.82z" transform="rotate(330)"/>
+    </g>
+    <circle r=".75" fill="#ffc800" stroke="#f5a800" stroke-width=".04"/>
+    <circle r=".5" fill="#ffd633"/>
+  </g>
+
+  <!-- облако -->
+  <g transform="translate(4.9,1.05)">
+    <g id="cloud-move">
+      <g id="cloud-shape">
+        <g fill="#bfcbd9" stroke="#bfcbd9" stroke-width=".06">
+          <ellipse cx="0" cy=".25" rx="1.4" ry=".45"/>
+          <circle cx="-.7" cy="0" r=".5"/><circle cx="0" cy="-.25" r=".65"/>
+          <circle cx=".75" cy="0" r=".52"/><circle cx="-1.1" cy=".2" r=".35"/><circle cx="1.2" cy=".2" r=".35"/>
+        </g>
+        <g fill="#e6edf5">
+          <ellipse cx="0" cy=".25" rx="1.4" ry=".45"/>
+          <circle cx="-.7" cy="0" r=".5"/><circle cx="0" cy="-.25" r=".65"/>
+          <circle cx=".75" cy="0" r=".52"/><circle cx="-1.1" cy=".2" r=".35"/><circle cx="1.2" cy=".2" r=".35"/>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- дождь -->
+  <g id="rain"></g>
+</svg>
+
+<script>
+  const rain = document.getElementById('rain');
+  const NS = 'http://www.w3.org/2000/svg';
+  for (let i = 0; i < 30; i++) {
+    const x = 3.7 + Math.random() * 2.5;
+    const y = 1.6 + Math.random() * 0.3;
+    const l = document.createElementNS(NS, 'line');
+    l.setAttribute('class', 'drop');
+    l.setAttribute('x1', x);        l.setAttribute('y1', y);
+    l.setAttribute('x2', x - 0.04); l.setAttribute('y2', y + 0.22);
+    l.style.animationDelay = (-Math.random()).toFixed(2) + 's';
+    l.style.animationDuration = (0.8 + Math.random() * 0.5).toFixed(2) + 's';
+    rain.appendChild(l);
+  }
+
+  let step = 0;
+  function apply() {
+    const b = document.body.classList;
+    b.toggle('spin', step >= 1);
+    b.toggle('cloud', step >= 2);
+    b.toggle('rainy', step >= 3);
+  }
+  function next() { step = (step + 1) % 4; apply(); }
+
+  document.addEventListener('click', next);
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight', ' ', 'Enter', 'PageDown'].includes(e.key)) { e.preventDefault(); next(); }
+    if (['ArrowLeft', 'PageUp'].includes(e.key)) { step = (step + 3) % 4; apply(); }
+  });
+</script>
+</body>
+</html>
